@@ -144,28 +144,26 @@ stackHelpers.display(stack);
 
 
 class StackQueue {
-    constructor() {
-        // this.first = null
-        // this.last = null
-        this.stack1 = new Stack()
-        this.stack2 = new Stack()
+  constructor() {
+    this.stack1 = new Stack();
+    this.stack2 = new Stack();
+  }
+
+  enqueue(data) {
+    this.stack1.push(data);
+  }
+
+  dequeue() {
+    if(stackHelpers.isEmpty(this.stack2)) {
+      if(stackHelpers.isEmpty(this.stack1)) {
+        return 'Error queue is empty';
+      }
+
+      while(!stackHelpers.isEmpty(this.stack1)) {
+        this.stack2.push(this.stack1.pop());
+      }
     }
 
-    enqueue(data) {
-        this.stack1.push(data)
-    }
-
-    dequeue() {
-        if(stackHelpers.isEmpty(this.stack2)) {
-            if(stackHelpers.isEmpty(this.stack1)) {
-                return `Error queue is empty`
-            }
-
-            while(!stackHelpers.isEmpty(this.stack1)) {
-                this.stack2.push(this.stack1.pop())
-            }
-        }
-
-        return this.stack2.pop()
-    }
+    return this.stack2.pop();
+  }
 }
