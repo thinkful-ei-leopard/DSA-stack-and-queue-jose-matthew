@@ -136,4 +136,4 @@ stack.push(2);
 stack.push(5);
 stack.push(4);
 
-console.table(sortStack(stack));
+stackHelpers.display(sortStack(stack));
