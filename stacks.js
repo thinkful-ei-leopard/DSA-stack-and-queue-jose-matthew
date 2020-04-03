@@ -112,6 +112,28 @@ function matchingParentheses(expression) {
 // console.log(matchingParentheses('hello world)'));
 // console.log(matchingParentheses('(hello world'));
 
-function sortStack() {
-    
+function sortStack(stack) {
+  const tempStack = stack;
+  const sorted = new Stack();
+
+  while(!stackHelpers.isEmpty(tempStack)) {
+    let curData = tempStack.pop();
+    while(!stackHelpers.isEmpty(sorted) && sorted.top.data < curData) {
+      tempStack.push(sorted.pop());
+    }
+
+    sorted.push(curData);
+  }
+
+  return sorted;
 }
+
+let stack = new Stack();
+stack.push(3);
+stack.push(6);
+stack.push(1);
+stack.push(2);
+stack.push(5);
+stack.push(4);
+
+console.table(sortStack(stack));
