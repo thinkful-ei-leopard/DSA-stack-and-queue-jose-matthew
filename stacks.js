@@ -29,18 +29,18 @@ class Stack {
 
 const stackHelpers = {
   peek(stack) {
-    return stack.top;
+    return stack.top.data;
   },
   isEmpty(stack) {
     return stack.top === null;
   },
   display(stack) {
-    if(stack.top === null) {
+    if(this.isEmpty(stack)) {
       return 'Stack is empty';
     }
     let start = stack;
 
-    while(start.top !== null) {
+    while(!this.isEmpty(stack)) {
       console.log(start.pop());
     }
   }
@@ -113,19 +113,21 @@ function matchingParentheses(expression) {
 // console.log(matchingParentheses('(hello world'));
 
 function sortStack(stack) {
-  const tempStack = stack;
-  const sorted = new Stack();
+  const tempStack = new Stack();
 
-  while(!stackHelpers.isEmpty(tempStack)) {
-    let curData = tempStack.pop();
-    while(!stackHelpers.isEmpty(sorted) && sorted.top.data < curData) {
-      tempStack.push(sorted.pop());
+  while(!stackHelpers.isEmpty(stack)) {
+    let curData = stack.pop();
+    
+    while(!stackHelpers.isEmpty(tempStack) && stackHelpers.peek(tempStack) > curData) {
+      stack.push(tempStack.pop());
     }
-
-    sorted.push(curData);
+    
+    tempStack.push(curData);
   }
 
-  return sorted;
+  while(!stackHelpers.isEmpty(tempStack)) {
+    stack.push(tempStack.pop());
+  }
 }
 
 let stack = new Stack();
@@ -136,4 +138,5 @@ stack.push(2);
 stack.push(5);
 stack.push(4);
 
-stackHelpers.display(sortStack(stack));
+sortStack(stack);
+stackHelpers.display(stack);
