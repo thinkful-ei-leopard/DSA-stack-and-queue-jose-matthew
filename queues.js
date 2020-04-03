@@ -186,4 +186,41 @@ let dancers = [
   },
 ];
 
-pairDancers(dancers);
+// pairDancers(dancers);
+
+// At the Ophidian Bank, a single teller serves a long queue of people. 
+// New customers join the end of the queue, and the teller will serve a 
+// customer only if they have all of the appropriate paperwork. Write a 
+// representation of this queue; 25% of the time (random), a customer's 
+// paperwork isn't quite right, and it's back to the end of the queue. 
+// Show what a few minutes of the bank's lobby would look like.
+
+
+
+function serveCustomer(queue) {
+  if(Math.random() > 0.5) {
+    let newCusomer = `Customer #${Math.floor(Math.random() * Math.floor(100))}`;
+    console.log(`${newCusomer} has joined the queue!`);
+    queue.enqueue(newCusomer);
+  }
+
+  let customer = queue.dequeue();
+  console.log(`${customer} has reached the teller!`);
+
+  let hasPaperwork = Math.random() > 0.25;
+  if(hasPaperwork) {
+    console.log(`${customer} has all the proper paperwork!`);
+  } else {
+    console.log(`${customer} doesn't have the proper paperwork. Moving to back of queue`);
+    queue.enqueue(customer);
+  }
+}
+
+let queue = new Queue();
+for(let i = 0; i < 5; i++) {
+  queue.enqueue(`Customer #${Math.floor(Math.random() * Math.floor(100))}`);
+}
+
+for(let i = 0; i < 15; i++) {
+  serveCustomer(queue);
+}
