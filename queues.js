@@ -71,7 +71,7 @@ starTrekQ.enqueue('checkov');
 // console.log(queueHelpers.peek(starTrekQ))
 starTrekQ.dequeue();
 starTrekQ.dequeue();
-queueHelpers.display(starTrekQ);
+// queueHelpers.display(starTrekQ);
 
 
 
@@ -129,3 +129,61 @@ starTrekQ2.enqueue('sulu2');
 starTrekQ2.enqueue('checkov2');
 
 // console.log(queueHelpers.peek(starTrekQ2))
+
+function pairDancers(arr) {
+  let queue = new Queue();
+  for(let i = 0; i < arr.length; i++) {
+    let dancer = arr[i];
+    console.log(`Dancer ${dancer.name}(${dancer.gender}) has joined the dance floor!`);
+    if(queueHelpers.isEmpty(queue)) {
+      console.log(`There is no one for ${dancer.name} to dance with! Adding to queue!`);
+      queue.enqueue(dancer);
+    } else {
+      let gender = dancer.gender;
+      if(queueHelpers.peek(queue).gender === gender) {
+        console.log(`There are only ${gender === 'M' ? 'Males' : 'Females'} in the queue! Adding ${dancer.name} to queue!`);
+        queue.enqueue(dancer);
+      } else {
+        let partner = queue.dequeue();
+        console.log(`${dancer.name} and ${partner.name} are now dancing!`);
+      }
+    }
+  }
+}
+
+let dancers = [
+  {
+    name: 'Jane',
+    gender: 'F'
+  },
+  {
+    name: 'Frank',
+    gender: 'M'
+  },
+  {
+    name: 'John',
+    gender: 'M'
+  },
+  {
+    name: 'Sherlock',
+    gender: 'M'
+  },
+  {
+    name: 'Madonna',
+    gender: 'F'
+  },
+  {
+    name: 'David',
+    gender: 'M'
+  },
+  {
+    name: 'Christopher',
+    gender: 'M'
+  },
+  {
+    name: 'Beyonce',
+    gender: 'F'
+  },
+];
+
+pairDancers(dancers);
